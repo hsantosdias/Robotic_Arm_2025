@@ -1,13 +1,12 @@
-/* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
- * Alunos: Bruno Boaventura de Oliveira Lacerda
- *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+/*
+ * PROJETO: Braço Robótico 3D em Java
+ * AUTOR: Hugo Santos Dias
+ * GITHUB: https://github.com/hsantosdias
+ * LINKEDIN: https://www.linkedin.com/in/hugo-santos-dias/
+ * DESCRIÇÃO: Simulação e renderização de um braço robótico interativo, 
+ *            agora com interface Swing atualizada e controles de objetos.
  */
-
-
-//matrix de dados para os movimentos do braço e a viewport
+//matrix de dados para os movimentos do braÃ§o e a viewport
 //classe responsavel por rotacionar os pontos em X,Y,Z e fazer o transporte 
 //de uma matriz de valoers para os novos
 

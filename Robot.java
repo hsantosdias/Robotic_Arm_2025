@@ -1,32 +1,52 @@
-/* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
- * Alunos: Bruno Boaventura de Oliveira Lacerda
- *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+/*
+ * PROJETO: Braço Robótico 3D em Java
+ * AUTOR: Hugo Santos Dias
+ * GITHUB: https://github.com/hsantosdias
+ * LINKEDIN: https://www.linkedin.com/in/hugo-santos-dias/
+ * DESCRIÇÃO: Simulação e renderização de um braço robótico interativo, 
+ *            agora com interface Swing atualizada e controles de objetos.
  */
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-//classe principal do braço robo
+//classe principal do braÃ§o robo
 
 public class Robot extends JPanel implements Runnable, MouseListener, MouseMotionListener, KeyListener
 {
     private volatile boolean running = false;
+    public static boolean objectGrabbed = false;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Projeto de Computação Gráfica - Braço Robô");
+        JFrame frame = new JFrame("Projeto de Computacao Grafica - Braco Robo");
+        frame.setLayout(new BorderLayout());
+        
         Robot robot = new Robot();
-        frame.add(robot);
+        frame.add(robot, BorderLayout.CENTER);
+        
+        JButton helpBtn = new JButton("Comandos de Movimentacao");
+        helpBtn.addActionListener(e -> JOptionPane.showMessageDialog(frame,
+            "COMANDOS DO BRACO:\n\n" +
+            "Setas Esquerda/Direita: Gira a base\n" +
+            "Setas Cima/Baixo: Move a articulacao central\n" +
+            "Home / End: Move a articulacao da ponta\n" +
+            "Teclas * e /: Abre e fecha a pinca\n" +
+            "Tecla G: Pega / Solta o objeto (Cubo)\n\n" +
+            "Movimentacao da Camera (Mouse ou Teclas 1 a 9):\n" +
+            "Arraste o mouse para girar a camera.\n" +
+            "F1 a F7: Visoes predefinidas de camera.", 
+            "Comandos", JOptionPane.INFORMATION_MESSAGE));
+        
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(helpBtn);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
+        
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         robot.init();
         robot.start();
+        robot.requestFocusInWindow();
     }
 
     public Robot() {
@@ -53,7 +73,7 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
     {
        super.paintComponent(g);
        if (bufferImage != null) {
-           g.drawImage(bufferImage, 0, 0, this); //desenha o braço robo na tela
+           g.drawImage(bufferImage, 0, 0, this); //desenha o braÃ§o robo na tela
        }
        
        g.drawImage(img, 5, 5, 70, 90, this); //imprime a logo da uesb
@@ -64,15 +84,15 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
        g.drawString("Universidade Estadual do Sudoeste da Bahia", 90, 20);
  
  	   g.setFont(f6); 
-       g.drawString("Curso: Bacharelado em Ciência da Computação", 90, 45);
+       g.drawString("Curso: Bacharelado em CiÃªncia da ComputaÃ§Ã£o", 90, 45);
 
        g.setFont(f3); 
-       g.drawString("Professor: Bruno Silvério Costa", 90, 60);
+       g.drawString("Professor: Bruno SilvÃ©rio Costa", 90, 60);
 
  	   g.setFont(f3); 
        g.drawString("Alunos: Hugo Santos Dias / Bruno Boaventura ", 90, 75);
              
-       g.drawString("Clique com o mouse na viewport para começar.", 90, 90); 		           
+       g.drawString("Clique com o mouse na viewport para comeÃ§ar.", 90, 90); 		           
     }
 
     public void update(Graphics g) //atualizar constantimente os graficos
@@ -83,9 +103,9 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
 //renderiza toda a viewport com seus elementos
     void render()
     {
-        //infelizmente não funciona o thread
+        //infelizmente nÃ£o funciona o thread
       //setLayout(new BorderLayout());
-      //add( new Label("Projeto de Computação Grafica - Braço Robo"), BorderLayout.NORTH);
+      //add( new Label("Projeto de ComputaÃ§Ã£o Grafica - BraÃ§o Robo"), BorderLayout.NORTH);
       //add( new Label("Hugo Santos Dias / Bruno Boaventura"), BorderLayout.SOUTH);
 
  
@@ -153,6 +173,9 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
 
     private int mapKey(KeyEvent e) {
         switch(e.getKeyCode()) {
+            case KeyEvent.VK_G:
+                objectGrabbed = !objectGrabbed;
+                return 0; // custom event handled directly
             case KeyEvent.VK_LEFT: return 1006;
             case KeyEvent.VK_RIGHT: return 1007;
             case KeyEvent.VK_HOME: return 1000;
@@ -340,7 +363,7 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
         return true;
     }
 
-//começa o thread
+//comeÃ§a o thread
     public void start()
     {
         if (ligar == null) {
@@ -350,7 +373,7 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
             ligar.start();
         }
     }
-//para a execução
+//para a execuÃ§Ã£o
     public void stop()
     {
         running = false;
@@ -378,7 +401,7 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
         }
     }
 
-	//definição das variaveis
+	//definiÃ§Ã£o das variaveis
     boolean mouse_mode; 
     static Graphics graphics; 
     static Image bufferImage;
@@ -403,7 +426,7 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
     long time_down;
     long time_up;
     int key;
-    //definição do thread
+    //definiÃ§Ã£o do thread
     Thread ligar;
     Image img;
     Font f1 = new Font("Helvetica", Font.PLAIN, 18);
@@ -414,7 +437,7 @@ public class Robot extends JPanel implements Runnable, MouseListener, MouseMotio
 	Font f6 = new Font("Dialog", Font.ITALIC, 14);
 
     
-	//definicão inicial dos angulos do braço
+	//definicÃ£o inicial dos angulos do braÃ§o
     static 
     {
         mouse_ang1 = 0.28000000000000003D;

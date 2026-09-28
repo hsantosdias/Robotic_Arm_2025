@@ -1,0 +1,18 @@
+# Compiled class files
+*.class
+
+# Temporary / Scratch Python scripts used for refactoring
+*.py
+patch.py
+fix.py
+fix2.py
+
+# Obsolete Applet files
+*.html
+*.htm
+*.bat
+
+# IDE and OS specific files
+.vscode/
+.DS_Store
+Thumbs.db

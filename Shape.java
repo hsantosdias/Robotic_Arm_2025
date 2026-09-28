@@ -1,18 +1,17 @@
 /* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
+ * CiÃªncia da ComputaÃ§Ã£o
+ * Disciplina: ComputaÃ§Ã£o GrÃ¡fica
  * Alunos: Bruno Boaventura de Oliveira Lacerda
  *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+ * Professor: Bruno SilvÃ©rio Costa
  */
 
 
 //classe de shape (formas)
-//define os métodos que qualquer forma geométrica deve apresentar
+//define os mÃ©todos que qualquer forma geomÃ©trica deve apresentar
 
 import java.awt.Graphics;
 import java.applet.Applet;
-import java.*;
 
 
 abstract class Shape
@@ -60,4 +59,3 @@ abstract class Shape
     Point3d points[];
     Screen scrpts[];
 }
-

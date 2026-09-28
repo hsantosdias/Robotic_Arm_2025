@@ -1,14 +1,14 @@
 /* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
+ * CiÃªncia da ComputaÃ§Ã£o
+ * Disciplina: ComputaÃ§Ã£o GrÃ¡fica
  * Alunos: Bruno Boaventura de Oliveira Lacerda
  *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+ * Professor: Bruno SilvÃ©rio Costa
  */
 
 
-//classe do primeira junta para o braço
-//desenha a primeira peça
+//classe do primeira junta para o braÃ§o
+//desenha a primeira peÃ§a
 
 import java.awt.Color;
 import java.awt.Graphics;

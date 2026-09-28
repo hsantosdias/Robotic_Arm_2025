@@ -1,38 +1,60 @@
 /* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
+ * CiÃªncia da ComputaÃ§Ã£o
+ * Disciplina: ComputaÃ§Ã£o GrÃ¡fica
  * Alunos: Bruno Boaventura de Oliveira Lacerda
  *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+ * Professor: Bruno SilvÃ©rio Costa
  */
 
 
 
-import java.applet.Applet;
+import javax.swing.*;
 import java.awt.*;
-import java.*;
+import java.awt.event.*;
 
+//classe principal do braÃ§o robo
 
-//classe principal do braço robo
-
-public class Robot extends Applet
-    implements Runnable
+public class Robot extends JPanel implements Runnable, MouseListener, MouseMotionListener, KeyListener
 {
+    private volatile boolean running = false;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Projeto de ComputaÃ§Ã£o GrÃ¡fica - BraÃ§o RobÃ´");
+        Robot robot = new Robot();
+        frame.add(robot);
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        robot.init();
+        robot.start();
+    }
+
+    public Robot() {
+        mouse_mode = false;
+        setFocusable(true);
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        addKeyListener(this);
+    }
 
     public void init()
     {
-        appletWidth = size().width; //pega os valores no html
-        appletHeight = size().height; //pega os valores no html
+        appletWidth = getWidth();
+        appletHeight = getHeight();
         bufferImage = createImage(appletWidth, appletHeight); 
-        bufferGraphics = bufferImage.getGraphics();
-        img = getImage(getCodeBase(), "uesb.gif");
+        if (bufferImage != null) {
+            bufferGraphics = bufferImage.getGraphics();
+        }
+        img = new ImageIcon("uesb.gif").getImage();
         render(); //chama o objeto render
-			
     }
 
-    public void paint(Graphics g) //desenha os graficos na tela 
+    public void paintComponent(Graphics g) //desenha os graficos na tela 
     {
-       g.drawImage(bufferImage, 0, 0, this); //desenha o braço robo na tela
+       super.paintComponent(g);
+       if (bufferImage != null) {
+           g.drawImage(bufferImage, 0, 0, this); //desenha o braÃ§o robo na tela
+       }
        
        g.drawImage(img, 5, 5, 70, 90, this); //imprime a logo da uesb
 
@@ -42,31 +64,28 @@ public class Robot extends Applet
        g.drawString("Universidade Estadual do Sudoeste da Bahia", 90, 20);
  
  	   g.setFont(f6); 
-       g.drawString("Curso: Bacharelado em Ciência da Computação", 90, 45);
+       g.drawString("Curso: Bacharelado em CiÃªncia da ComputaÃ§Ã£o", 90, 45);
 
        g.setFont(f3); 
-       g.drawString("Professor: Bruno Silvério Costa", 90, 60);
-
+       g.drawString("Professor: Bruno SilvÃ©rio Costa", 90, 60);
 
  	   g.setFont(f3); 
        g.drawString("Alunos: Hugo Santos Dias / Bruno Boaventura ", 90, 75);
              
-      
-       showStatus("Clique com o mouse na viewport para começar."); 		           
-
-        }
+       g.drawString("Clique com o mouse na viewport para comeÃ§ar.", 90, 90); 		           
+    }
 
     public void update(Graphics g) //atualizar constantimente os graficos
     {
-        paint(g);
+        paintComponent(g);
     }
 
 //renderiza toda a viewport com seus elementos
     void render()
     {
-        //infelizmente não funciona o thread
+        //infelizmente nÃ£o funciona o thread
       //setLayout(new BorderLayout());
-      //add( new Label("Projeto de Computação Grafica - Braço Robo"), BorderLayout.NORTH);
+      //add( new Label("Projeto de ComputaÃ§Ã£o Grafica - BraÃ§o Robo"), BorderLayout.NORTH);
       //add( new Label("Hugo Santos Dias / Bruno Boaventura"), BorderLayout.SOUTH);
 
  
@@ -93,51 +112,64 @@ public class Robot extends Applet
     }
     
      
-//public
- public class nome extends java.applet.Applet{ 	 // cria a classe Nome e herda o as definições pré-desenvolvidas em java.applet.Applet.
-    public void paint (Graphics g)
-    {  
-         g.drawString("Bem Vindos!",5,25);  
-     } 	// Recebe o objeto "g" do tipo Graphics e passa para ele o método drawString com os parâmetros (mensagem, linha e coluna)
-}
-
-//void nomes ()
-//{ 	
-//
-//}
-
 	//aguarda eventos do mouse
-    public boolean mouseDown(Event evt, int x, int y)
+    public void mousePressed(MouseEvent evt)
     {
-        mouse_x = x;
-        mouse_y = y;
-        return true;
+        mouse_x = evt.getX();
+        mouse_y = evt.getY();
     }
 
-    public boolean mouseUp(Event evt, int x, int y)
+    public void mouseReleased(MouseEvent evt)
     {
-        int dx = x - mouse_x;
-        int dy = y - mouse_y;
+        int dx = evt.getX() - mouse_x;
+        int dy = evt.getY() - mouse_y;
         mouse_ang1 += (double)dx / 100D;
         mouse_ang2 += (double)dy / 100D;
-        return true;
     }
+    
+    public void mouseClicked(MouseEvent evt) {}
+    public void mouseEntered(MouseEvent evt) {}
+    public void mouseExited(MouseEvent evt) {}
+    public void mouseDragged(MouseEvent evt) {}
+    public void mouseMoved(MouseEvent evt) {}
 
 //tecla em down
-    public boolean keyDown(Event evt, int key)
+    public void keyPressed(KeyEvent evt)
     {
-        if(this.key != key)
+        int mappedKey = mapKey(evt);
+        if(this.key != mappedKey)
         {
-            time_down = evt.when;
-            this.key = key;
+            time_down = evt.getWhen();
+            this.key = mappedKey;
         }
-        return true;
     }
 //tecla em up
-    public boolean keyUp(Event evt, int key)
+    public void keyReleased(KeyEvent evt)
     {
-        time_up = evt.when;
-        return true;
+        time_up = evt.getWhen();
+    }
+    
+    public void keyTyped(KeyEvent evt) {}
+
+    private int mapKey(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_LEFT: return 1006;
+            case KeyEvent.VK_RIGHT: return 1007;
+            case KeyEvent.VK_HOME: return 1000;
+            case KeyEvent.VK_END: return 1001;
+            case KeyEvent.VK_UP: return 1004;
+            case KeyEvent.VK_DOWN: return 1005;
+            case KeyEvent.VK_PAGE_UP: return 1002;
+            case KeyEvent.VK_PAGE_DOWN: return 1003;
+            case KeyEvent.VK_F1: return 1008;
+            case KeyEvent.VK_F2: return 1009;
+            case KeyEvent.VK_F3: return 1010;
+            case KeyEvent.VK_F4: return 1011;
+            case KeyEvent.VK_F5: return 1012;
+            case KeyEvent.VK_F6: return 1013;
+            case KeyEvent.VK_F7: return 1014;
+        }
+        return e.getKeyChar();
     }
 
 //mover braco
@@ -308,49 +340,45 @@ public class Robot extends Applet
         return true;
     }
 
-//começa o thread
+//comeÃ§a o thread
     public void start()
     {
-        ligar = new Thread(this);
-        ligar.setPriority(3);
-        ligar.start();
+        if (ligar == null) {
+            running = true;
+            ligar = new Thread(this);
+            ligar.setPriority(3);
+            ligar.start();
+        }
     }
-//para a execução
+//para a execuÃ§Ã£o
     public void stop()
     {
-        ligar.stop();
+        running = false;
         ligar = null;
     }
 
 //roda o processo
     public void run()
     {
-        do
+        while(running)
         {
             for(; moveRobot(); Thread.yield())
             {
+                if (!running) break;
                 try
                 {
                     render();
                 }
                 catch(ArithmeticException _ex) { }
-                paint(getGraphics());
+                repaint();
                 System.gc();
             }
 
             Thread.yield();
-        } while(true);
+        }
     }
 
-
-//inicializa com false ate o primeiro clique do mouse
-    public Robot()
-    {
-        mouse_mode = false;
-        
-    }
-
-	//definição das variaveis
+	//definiÃ§Ã£o das variaveis
     boolean mouse_mode; 
     static Graphics graphics; 
     static Image bufferImage;
@@ -375,7 +403,7 @@ public class Robot extends Applet
     long time_down;
     long time_up;
     int key;
-    //definição do thread
+    //definiÃ§Ã£o do thread
     Thread ligar;
     Image img;
     Font f1 = new Font("Helvetica", Font.PLAIN, 18);
@@ -386,7 +414,7 @@ public class Robot extends Applet
 	Font f6 = new Font("Dialog", Font.ITALIC, 14);
 
     
-	//definicão inicial dos angulos do braço
+	//definicÃ£o inicial dos angulos do braÃ§o
     static 
     {
         mouse_ang1 = 0.28000000000000003D;

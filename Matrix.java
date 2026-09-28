@@ -1,13 +1,13 @@
 /* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
+ * CiÃªncia da ComputaÃ§Ã£o
+ * Disciplina: ComputaÃ§Ã£o GrÃ¡fica
  * Alunos: Bruno Boaventura de Oliveira Lacerda
  *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+ * Professor: Bruno SilvÃ©rio Costa
  */
 
 
-//matrix de dados para os movimentos do braço e a viewport
+//matrix de dados para os movimentos do braÃ§o e a viewport
 //classe responsavel por rotacionar os pontos em X,Y,Z e fazer o transporte 
 //de uma matriz de valoers para os novos
 

@@ -1,14 +1,14 @@
 /* UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA
- * Ciência da Computação
- * Disciplina: Computação Gráfica
+ * CiÃªncia da ComputaÃ§Ã£o
+ * Disciplina: ComputaÃ§Ã£o GrÃ¡fica
  * Alunos: Bruno Boaventura de Oliveira Lacerda
  *         Hugo Santos Dias
- * Professor: Bruno Silvério Costa
+ * Professor: Bruno SilvÃ©rio Costa
  */
 
 
-//classe de pontos 3d para transfomações de 3d para 2d 
-//criada para tratar pontos nos espaço
+//classe de pontos 3d para transfomaÃ§Ãµes de 3d para 2d 
+//criada para tratar pontos nos espaÃ§o
 class Point3d
     implements Cloneable
 {
@@ -36,7 +36,7 @@ class Point3d
         this.z = z;
     }
 
-    void Rotate(Matrix mat, Point3d pt) //chama a classe que faz a rotação da matriz 
+    void Rotate(Matrix mat, Point3d pt) //chama a classe que faz a rotaÃ§Ã£o da matriz 
     {
         pt = pt.copy();
         x = pt.x * mat.x0 + pt.y * mat.x1 + pt.z * mat.x2;
